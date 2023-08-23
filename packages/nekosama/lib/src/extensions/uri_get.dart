@@ -1,13 +1,10 @@
-
 import 'dart:convert';
 import 'dart:io';
 
 import 'package:nekosama/src/models/neko_sama_exception.dart';
 import 'package:nekosama/src/models/get_url_response.dart';
 
-
 extension UriWithGet on Uri {
-
   Future<GetUrlResponse> get({
     required HttpClient httpClient,
     Map<String, dynamic>? headers,

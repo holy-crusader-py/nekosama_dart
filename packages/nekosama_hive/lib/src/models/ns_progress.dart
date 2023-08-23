@@ -1,10 +1,7 @@
-
-
 class NSProgress {
-
   final int total;
   final int progress;
-  
+
   NSProgress({
     required this.total,
     required this.progress,
@@ -15,10 +12,11 @@ class NSProgress {
   NSProgress copyWith({
     int? total,
     int? progress,
-  }) => NSProgress(
-    total: total ?? this.total,
-    progress: progress ?? this.progress,
-  );
+  }) =>
+      NSProgress(
+        total: total ?? this.total,
+        progress: progress ?? this.progress,
+      );
 
   @override
   String toString() => "NSProgress(total: $total, progress: $progress)";
@@ -28,7 +26,9 @@ class NSProgress {
     if (identical(this, other)) {
       return true;
     }
-    return other is NSProgress && other.total == total && other.progress == progress;
+    return other is NSProgress &&
+        other.total == total &&
+        other.progress == progress;
   }
 
   @override

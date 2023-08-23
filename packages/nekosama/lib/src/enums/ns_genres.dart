@@ -1,8 +1,5 @@
-
-
 /// All genres available on `neko-sama.fr`.
 enum NSGenres {
-  
   action(
     "action",
     "action",
@@ -131,23 +128,31 @@ enum NSGenres {
 
   /// The name used internally by the website.
   final String apiName;
+
   /// The english name.
   final String englishName;
+
   /// The french name.
   final String frenchName;
 
   const NSGenres(this.apiName, this.englishName, this.frenchName);
 
   /// The url of this genre.
-  Uri get url => Uri.parse('https://neko-sama.fr/anime/#{"genres":["$apiName"]}');
+  Uri get url =>
+      Uri.parse('https://neko-sama.fr/anime/#{"genres":["$apiName"]}');
 
   /// Contruct a [NSGenres] from a `String`.
-  /// 
+  ///
   /// Returns `null` if [genre] is not a valid value.
   static NSGenres? fromString(String genre) {
     final name = genre.trim().toLowerCase();
     for (final genreVal in NSGenres.values) {
-      if ([genreVal.name, genreVal.apiName, genreVal.englishName, genreVal.frenchName].contains(name)) {
+      if ([
+        genreVal.name,
+        genreVal.apiName,
+        genreVal.englishName,
+        genreVal.frenchName
+      ].contains(name)) {
         return genreVal;
       }
     }

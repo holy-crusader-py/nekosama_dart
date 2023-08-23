@@ -1,9 +1,6 @@
-
 import 'package:nekosama/src/enums/ns_sources.dart';
 
-
 abstract class NSAnimeBase {
-
   final int id;
   final String title;
   final Uri url;

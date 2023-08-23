@@ -1,15 +1,12 @@
-
 import 'package:html/dom.dart';
 import 'package:nekosama/src/helpers/extract_anime_source.dart';
 import 'package:nekosama/src/models/neko_sama_exception.dart';
 import 'package:nekosama/src/helpers/extract_anime_id.dart';
 import 'package:nekosama/src/models/ns_carousel_anime.dart';
 
-
 List<NSCarouselAnime> parseCarousel(Element carousel) => [
-  for (final element in carousel.children)
-    parseCarouselElement(element),
-];
+      for (final element in carousel.children) parseCarouselElement(element),
+    ];
 
 NSCarouselAnime parseCarouselElement(Element carouselElement) {
   try {
@@ -25,7 +22,11 @@ NSCarouselAnime parseCarouselElement(Element carouselElement) {
       year: int.parse(matches?.group(1) ?? ""),
       url: url,
       source: extractAnimeSource(url.toString()),
-      thumbnail: Uri.parse(carouselElement.getElementsByClassName("lazy").first.attributes["data-src"] ?? ""),
+      thumbnail: Uri.parse(carouselElement
+              .getElementsByClassName("lazy")
+              .first
+              .attributes["data-src"] ??
+          ""),
       episodeCount: int.parse(matches?.group(2) ?? ""),
     );
   } on Exception catch (e) {

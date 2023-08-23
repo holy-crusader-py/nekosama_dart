@@ -16,7 +16,7 @@ dependencies:
   hive: ^2.2.3
   nekosama:
     git:
-      url: https://github.com/zkayia/nekosama_dart
+      url: https://github.com/holy-crusader-py/nekosama_dart
       path: packages/nekosama
 
 dev_dependencies:

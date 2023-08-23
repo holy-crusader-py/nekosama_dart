@@ -1,4 +1,3 @@
-
 import 'package:hive/hive.dart';
 import 'package:nekosama/nekosama.dart';
 import 'package:nekosama_hive/src/helpers/add_id_to_box.dart';
@@ -9,28 +8,33 @@ import 'package:nekosama_hive/src/querys/ns_int_query.dart';
 import 'package:nekosama_hive/src/querys/ns_num_query.dart';
 import 'package:nekosama_hive/src/querys/ns_string_query.dart';
 
-
 class NSHiveSearchDb {
-
   final NekoSama _parent;
   bool _dbActive = false;
+
   /// Miscellaneous database statistics.
   NSSearchDbStats? stats;
+
   /// The `DateTime` at which the database was last populated.
-  /// 
+  ///
   /// Returns `null` if the database was never populated.
-  DateTime? get lastPopulated => Hive.box("ns_search_info").get("lastPopulated");
+  DateTime? get lastPopulated =>
+      Hive.box("ns_search_info").get("lastPopulated");
+
   /// The current source used in the database.
-  NSSources? get dbSource => NSSources.fromString(Hive.box("ns_search_info").get("source") ?? "");
+  NSSources? get dbSource =>
+      NSSources.fromString(Hive.box("ns_search_info").get("source") ?? "");
+
   /// Return `true` if the database was initialised.
   bool get dbInitialised => _dbActive;
+
   /// Return `true` if the database was disposed.
   bool get dbDisposed => !_dbActive;
 
   NSHiveSearchDb(this._parent);
 
   /// Initialises the search database.
-  /// 
+  ///
   /// Hive is not initialised unless
   /// [dbDir] is provided. Omit it only if Hive was manually
   /// initialised prior to this method call.
@@ -76,22 +80,23 @@ class NSHiveSearchDb {
   }
 
   /// Populates the search database.
-  /// 
+  ///
   /// [source] is used to choose the database to fetch.
-  /// 
+  ///
   /// Equivalent to [populateStream].
-  Future<void> populate([NSSources source=NSSources.vostfr]) async =>
-    populateStream(source).firstWhere((progress) => progress.isDone);
+  Future<void> populate([NSSources source = NSSources.vostfr]) async =>
+      populateStream(source).firstWhere((progress) => progress.isDone);
 
   /// Populates the search database.
-  /// 
+  ///
   /// [source] is used to choose the database to fetch.
-  /// 
+  ///
   /// Returns a `Stream` of [NSProgress] that can be
   /// listened to receive progression events.
-  /// 
+  ///
   /// Equivalent to [populate].
-  Stream<NSProgress> populateStream([NSSources source=NSSources.vostfr]) async* {
+  Stream<NSProgress> populateStream(
+      [NSSources source = NSSources.vostfr]) async* {
     await clear();
     final searchDb = await _parent.getSearchDb(source);
     final total = searchDb.length;
@@ -148,7 +153,7 @@ class NSHiveSearchDb {
         (ids) => <int>{...ids, anime.id},
         ifAbsent: () => <int>{anime.id},
       );
-      if (total == i+1) {
+      if (total == i + 1) {
         for (final element in [
           [genres, "ns_genres"],
           [years, "ns_years"],
@@ -164,11 +169,13 @@ class NSHiveSearchDb {
         infoBox.put("singleAnimeMaxGenres", singleAnimeMaxGenres);
         infoBox.put("lastPopulated", DateTime.now());
         final totalStatuses = statusesBox.toMap().map(
-          (key, value) => MapEntry(NSStatuses.values.elementAt(key), value.length),
-        );
+              (key, value) =>
+                  MapEntry(NSStatuses.values.elementAt(key), value.length),
+            );
         final totalTypes = typesBox.toMap().map(
-          (key, value) => MapEntry(NSTypes.values.elementAt(key), value.length),
-        );
+              (key, value) =>
+                  MapEntry(NSTypes.values.elementAt(key), value.length),
+            );
         stats = NSSearchDbStats(
           totalAnimes: total,
           totalPerGenre: {
@@ -180,33 +187,38 @@ class NSHiveSearchDb {
             for (final status in NSStatuses.values)
               if (!totalStatuses.containsKey(status))
                 status: status == NSStatuses.aired
-                  ? total - totalStatuses.values.reduce((value, element) => value + element)
-                  : 0,
+                    ? total -
+                        totalStatuses.values
+                            .reduce((value, element) => value + element)
+                    : 0,
           },
           totalPerType: {
             ...totalTypes,
             for (final status in NSTypes.values)
               if (!totalTypes.containsKey(status))
                 status: status == NSTypes.tv
-                  ? total - totalTypes.values.reduce((value, element) => value + element)
-                  : 0,
+                    ? total -
+                        totalTypes.values
+                            .reduce((value, element) => value + element)
+                    : 0,
           },
           totalPerYear: years.map((key, value) => MapEntry(key, value.length)),
         );
       }
-      yield NSProgress(total: total, progress: i+1);
+      yield NSProgress(total: total, progress: i + 1);
     }
   }
 
   /// Get the anime with the provided [id].
-  /// 
+  ///
   /// Returns `null` if [id] doesn't exists.
   Future<NSSearchAnime?> getSearchAnime(int id) async {
     try {
       final anime = Hive.box<String>("ns_animes").get(id);
       return anime == null ? null : NSSearchAnime.fromJson(anime);
     } on Exception catch (e) {
-      throw NekoSamaException("Something went wrong while looking for an anime with id '$id'", e);
+      throw NekoSamaException(
+          "Something went wrong while looking for an anime with id '$id'", e);
     }
   }
 
@@ -235,15 +247,12 @@ class NSHiveSearchDb {
       episodeCountQuery: episodeCountQuery,
     );
     return [
-      for (final id in results)
-        await getSearchAnime(id),
-    ]
-      .whereType<NSSearchAnime>()
-      .toList();
+      for (final id in results) await getSearchAnime(id),
+    ].whereType<NSSearchAnime>().toList();
   }
-  
+
   /// Make a search with the provided filters.
-  /// 
+  ///
   /// Returns a list of ids, use [searchAnimes]
   /// to directly get the corresponding [NSSearchAnime].
   Future<List<int>> searchIds({
@@ -265,14 +274,10 @@ class NSHiveSearchDb {
         [typesIsAny, NSTypes.values, NSTypes.tv, "ns_types"],
     ];
     final numQuerys = [
-      if (yearQuery != null)
-        [yearQuery, "ns_years"],
-      if (popularityQuery != null)
-        [popularityQuery, "ns_popularity"],
-      if (scoreQuery != null)
-        [scoreQuery, "ns_score"],
-      if (episodeCountQuery != null)
-        [episodeCountQuery, "ns_episodeCount"],
+      if (yearQuery != null) [yearQuery, "ns_years"],
+      if (popularityQuery != null) [popularityQuery, "ns_popularity"],
+      if (scoreQuery != null) [scoreQuery, "ns_score"],
+      if (episodeCountQuery != null) [episodeCountQuery, "ns_episodeCount"],
     ];
     final Set<int> matches = {};
     final Set<int> toFilter = {};
@@ -282,7 +287,9 @@ class NSHiveSearchDb {
       }
       matches.retainAll(values);
     }
-    if (genres.length > (infoBox.get("singleAnimeMaxGenres") ?? NSGenres.values.length)) {
+
+    if (genres.length >
+        (infoBox.get("singleAnimeMaxGenres") ?? NSGenres.values.length)) {
       return [];
     }
     if (title != null) {
@@ -290,8 +297,7 @@ class NSHiveSearchDb {
       final titles = titlesBox.values;
       final results = <int>{
         for (var i = 0; i < titles.length; i++)
-          if (title.operation.call(titles.elementAt(i)))
-            titlesBox.keyAt(i),
+          if (title.operation.call(titles.elementAt(i))) titlesBox.keyAt(i),
       };
       if (results.isEmpty) {
         return [];
@@ -331,8 +337,7 @@ class NSHiveSearchDb {
         }
       } else {
         final results = <int>{
-          for (final value in set)
-            ...box.get((value as Enum).index) ?? [],
+          for (final value in set) ...box.get((value as Enum).index) ?? [],
         };
         if (results.isEmpty) {
           return [];
@@ -347,12 +352,11 @@ class NSHiveSearchDb {
       }
       final box = Hive.box<List<int>>(numQuerys.elementAt(i).last as String);
       final keys = [1, 2].contains(i)
-        ? (box.keys as List<String>).map(double.parse)
-        :  box.keys;
+          ? (box.keys as List<String>).map(double.parse)
+          : box.keys;
       final results = <int>{
         for (final key in keys)
-          if (query.operation.call(key))
-            ...box.get(key) ?? [],
+          if (query.operation.call(key)) ...box.get(key) ?? [],
       };
       if (results.isEmpty) {
         return [];

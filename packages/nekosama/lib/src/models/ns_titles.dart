@@ -1,9 +1,6 @@
-
 import 'dart:convert';
 
-
 class NSTitles {
-
   final int animeId;
   final String? english;
   final String? french;
@@ -18,12 +15,8 @@ class NSTitles {
     this.others,
   });
 
-  List<String> get asList => [
-    english,
-    french,
-    romanji,
-    others
-  ].whereType<String>().toList();
+  List<String> get asList =>
+      [english, french, romanji, others].whereType<String>().toList();
 
   String get asString => asList.join(" ");
 
@@ -33,55 +26,58 @@ class NSTitles {
     String? french,
     String? romanji,
     String? others,
-  }) => NSTitles(
-    animeId: animeId ?? this.animeId,
-    english: english ?? this.english,
-    french: french ?? this.french,
-    romanji: romanji ?? this.romanji,
-    others: others ?? this.others,
-  );
+  }) =>
+      NSTitles(
+        animeId: animeId ?? this.animeId,
+        english: english ?? this.english,
+        french: french ?? this.french,
+        romanji: romanji ?? this.romanji,
+        others: others ?? this.others,
+      );
 
   Map<String, dynamic> toMap() => {
-    "animeId": animeId,
-    "english": english,
-    "french": french,
-    "romanji": romanji,
-    "others": others,
-  };
+        "animeId": animeId,
+        "english": english,
+        "french": french,
+        "romanji": romanji,
+        "others": others,
+      };
 
   factory NSTitles.fromMap(Map<String, dynamic> map) => NSTitles(
-    animeId: map["animeId"],
-    english: map["english"],
-    french: map["french"],
-    romanji: map["romanji"],
-    others: map["others"],
-  );
+        animeId: map["animeId"],
+        english: map["english"],
+        french: map["french"],
+        romanji: map["romanji"],
+        others: map["others"],
+      );
 
   String toJson() => json.encode(toMap());
 
-  factory NSTitles.fromJson(String source) => NSTitles.fromMap(json.decode(source));
+  factory NSTitles.fromJson(String source) =>
+      NSTitles.fromMap(json.decode(source));
 
   @override
   String toString() =>
-    "NSTitles(animeId: $animeId, english: $english, french: $french, romanji: $romanji, others: $others)";
+      "NSTitles(animeId: $animeId, english: $english, french: $french, romanji: $romanji, others: $others)";
 
   @override
   bool operator ==(Object other) {
     if (identical(this, other)) {
       return true;
     }
-    return other is NSTitles
-      && other.animeId == animeId
-      && other.english == english
-      && other.french == french
-      && other.romanji == romanji
-      && other.others == others;
+    return other is NSTitles &&
+        other.animeId == animeId &&
+        other.english == english &&
+        other.french == french &&
+        other.romanji == romanji &&
+        other.others == others;
   }
 
   @override
-  int get hashCode => animeId.hashCode
-    ^ english.hashCode
-    ^ french.hashCode
-    ^ romanji.hashCode
-    ^ others.hashCode;
+  int get hashCode =>
+      animeId.hashCode ^
+      english.hashCode ^
+      french.hashCode ^
+      romanji.hashCode ^
+      others.hashCode;
 }

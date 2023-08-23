@@ -1,11 +1,9 @@
-
 import 'dart:convert';
 
 import 'package:nekosama/src/helpers/extract_episode_int.dart';
 import 'package:nekosama/src/helpers/extract_anime_id.dart';
 import 'package:nekosama/src/models/get_url_response.dart';
 import 'package:nekosama/src/models/ns_new_episode.dart';
-
 
 List<NSNewEpisode> extractNewEpisodes(GetUrlResponse homePageResponse) {
   final reg = RegExp(r"(?<=var\slastEpisodes\s=\s)\[.+\](?=;)");
@@ -17,7 +15,8 @@ List<NSNewEpisode> extractNewEpisodes(GetUrlResponse homePageResponse) {
           animeId: extractAnimeId(Uri.parse(episode["anime_url"]!)),
           animeUrl: Uri.parse("https://neko-sama.fr${episode["anime_url"]}"),
           episodeNumber: extractEpisodeInt(episode["episode"] ?? "0"),
-          thumbnail: Uri.tryParse(episode["url_bg"] ?? "::Not valid URI::") ?? Uri(),
+          thumbnail:
+              Uri.tryParse(episode["url_bg"] ?? "::Not valid URI::") ?? Uri(),
           url: Uri.parse("https://neko-sama.fr${episode["url"] ?? ""}"),
           addedAt: _parseNewEpisodeTime(
             homePageResponse.timestamp,

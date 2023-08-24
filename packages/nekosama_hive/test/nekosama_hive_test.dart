@@ -46,6 +46,7 @@ Future<void> main() async {
       await searchDB.init('$basePath/exists_anime');
       await searchDB.populate();
       final exists = searchDB.existsAnime(4833);
+      expect(exists, isTrue);
       expect(exists, isA<bool>());
       searchDB.dispose();
     });
@@ -57,7 +58,7 @@ Future<void> main() async {
       final searchIDs = await searchDB.searchIds(
         title: NSStringQuery.contains('Panty'),
       );
-      print(searchIDs);
+      expect(searchIDs.length, isNonZero);
       expect(searchIDs, isA<List<int>>());
       searchDB.dispose();
     });

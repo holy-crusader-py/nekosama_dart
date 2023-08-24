@@ -1,4 +1,4 @@
-/// All types available on `neko-sama.fr`.
+/// All types available on `animecat.net`.
 enum NSTypes {
   movie("m0v1e", "movie", "film"),
   ova("ova", "ova", "ova"),
@@ -17,7 +17,7 @@ enum NSTypes {
   const NSTypes(this.apiName, this.englishName, this.frenchName);
 
   /// The url of this type.
-  Uri get url => Uri.parse('https://neko-sama.fr/anime/#{"type":["$apiName"]}');
+  Uri get url => Uri.parse('https://animecat.net/anime/#{"type":["$apiName"]}');
 
   /// Contruct a `NSTypes` from a `String`.
   ///

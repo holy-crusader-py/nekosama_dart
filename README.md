@@ -1,7 +1,7 @@
 
 # nekosama_dart
 
-Unofficial dart api for neko-sama.fr.
+Unofficial dart api for animecat.net.
 
 Package                                   |Version
 ---                                       |:---:

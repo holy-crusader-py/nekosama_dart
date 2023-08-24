@@ -1,4 +1,4 @@
-/// All sources available on `neko-sama.fr`.
+/// All sources available on `animecat.net`.
 enum NSSources {
   vostfr("vostfr", "french sub", "vostfr"),
   vf("vf", "french dub", "vf");
@@ -16,7 +16,7 @@ enum NSSources {
 
   /// The url of this source.
   Uri get url => Uri.https(
-        "neko-sama.fr",
+        "animecat.net",
         "/anime${this == NSSources.vf ? "-vf" : ""}",
       );
 

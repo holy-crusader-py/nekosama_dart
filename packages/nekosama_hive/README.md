@@ -1,7 +1,7 @@
 
 # nekosama_hive
 
-Unofficial dart api for neko-sama.fr with Hive powered search.
+Unofficial dart api for animecat.net with Hive powered search.
 
 ## Installation
 
@@ -53,9 +53,9 @@ await for (final event in process) {
 }
 ```
 In both cases, the optional `source` parameter is used to either fetch the
-[VOSTFR DB](https://neko-sama.fr/animes-search-vostfr.json)
+[VOSTFR DB](https://animecat.net/animes-search-vostfr.json)
 (default) or the
-[VF DB](https://neko-sama.fr/animes-search-vf.json).
+[VF DB](https://animecat.net/animes-search-vf.json).
 
 It's currently not possible to have both source in the database at same time.
 

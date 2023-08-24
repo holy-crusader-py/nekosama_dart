@@ -1,4 +1,4 @@
-/// All statuses available on `neko-sama.fr`.
+/// All statuses available on `animecat.net`.
 enum NSStatuses {
   aired("2", "aired", "terminé"),
   airing("1", "airing", "en cours"),
@@ -17,7 +17,7 @@ enum NSStatuses {
 
   /// The url of this status.
   Uri get url =>
-      Uri.parse('https://neko-sama.fr/anime/#{"status":["$apiName"]}');
+      Uri.parse('https://animecat.net/anime/#{"status":["$apiName"]}');
 
   /// Contruct a [NSStatuses] from a `String`.
   ///

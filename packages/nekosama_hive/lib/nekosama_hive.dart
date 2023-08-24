@@ -1,4 +1,4 @@
-/// Unofficial dart api for neko-sama.fr.
+/// Unofficial dart api for animecat.net.
 library nekosama_hive;
 
 // To keep the order of the files

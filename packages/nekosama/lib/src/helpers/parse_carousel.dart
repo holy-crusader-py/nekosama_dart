@@ -14,7 +14,7 @@ NSCarouselAnime parseCarouselElement(Element carouselElement) {
       carouselElement.getElementsByClassName("episode").first.text,
     );
     final url = Uri.parse(
-      "https://neko-sama.fr${carouselElement.getElementsByTagName("a").first.attributes["href"] ?? ""}",
+      "https://animecat.net${carouselElement.getElementsByTagName("a").first.attributes["href"] ?? ""}",
     );
     return NSCarouselAnime(
       id: extractAnimeId(url),

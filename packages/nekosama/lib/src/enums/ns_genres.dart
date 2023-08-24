@@ -1,4 +1,4 @@
-/// All genres available on `neko-sama.fr`.
+/// All genres available on `animecat.net`.
 enum NSGenres {
   action(
     "action",
@@ -139,7 +139,7 @@ enum NSGenres {
 
   /// The url of this genre.
   Uri get url =>
-      Uri.parse('https://neko-sama.fr/anime/#{"genres":["$apiName"]}');
+      Uri.parse('https://animecat.net/anime/#{"genres":["$apiName"]}');
 
   /// Contruct a [NSGenres] from a `String`.
   ///

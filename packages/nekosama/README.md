@@ -1,7 +1,7 @@
 
 # nekosama
 
-Unofficial dart api for neko-sama.fr.
+Unofficial dart api for animecat.net.
 
 ## Installation
 
@@ -33,7 +33,7 @@ api.dispose();
 * Fetch an anime by url:
 ```dart
 final onePiece = await api.getAnime(
-  Uri.parse("https://neko-sama.fr/anime/info/12-one-piece-vostfr")
+  Uri.parse("https://animecat.net/anime/info/12-one-piece-vostfr")
 );
 ```
 
@@ -89,6 +89,6 @@ final raw = await api.getRawSearchDb(source);
 ```
 
 In both cases, the optional `source` parameter is used to either fetch the
-[VOSTFR DB](https://neko-sama.fr/animes-search-vostfr.json)
+[VOSTFR DB](https://animecat.net/animes-search-vostfr.json)
 (default) or the
-[VF DB](https://neko-sama.fr/animes-search-vf.json).
+[VF DB](https://animecat.net/animes-search-vf.json).

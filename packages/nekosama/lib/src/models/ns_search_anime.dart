@@ -124,7 +124,7 @@ class NSSearchAnime extends NSAnimeExtendedBase {
         year: int.tryParse(nsMap["start_date_year"] ?? "0") ?? 0,
         popularity: nsMap["popularity"] ?? 0.0,
         score: double.tryParse(nsMap["score"] ?? "0.0") ?? 0.0,
-        url: Uri.parse("https://neko-sama.fr${nsMap["url"] ?? ""}"),
+        url: Uri.parse("https://animecat.net${nsMap["url"] ?? ""}"),
         thumbnail:
             Uri.tryParse(nsMap["url_image"] ?? "::Not valid URI::") ?? Uri(),
         episodeCount: extractEpisodeInt(nsMap["nb_eps"] ?? "0"),

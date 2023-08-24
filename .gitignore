@@ -11,3 +11,5 @@ pubspec.lock
 
 *.g.dart
 pubspec_overrides.yaml
+
+packages/nekosama_hive/test/temp/

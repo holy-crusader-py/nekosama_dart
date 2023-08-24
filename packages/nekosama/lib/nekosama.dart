@@ -1,4 +1,4 @@
-/// Unofficial dart api for neko-sama.fr.
+/// Unofficial dart api for animecat.net.
 library nekosama;
 
 export 'package:nekosama/src/enums/ns_genres.dart' show NSGenres;

@@ -1,6 +1,6 @@
 
 name: nekosama_hive
-description: Unofficial dart api for neko-sama.fr with Hive powered search.
+description: Unofficial dart api for animecat.net with Hive powered search.
 version: 2.4.0
 homepage: https://github.com/zkayia/nekosama_dart
 issue_tracker: https://github.com/zkayia/nekosama_dart/issues
@@ -21,3 +21,4 @@ dependencies:
 
 dev_dependencies:
   dart_code_metrics: ^5.6.0
+  test: ^1.24.6

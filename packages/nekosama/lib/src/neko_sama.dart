@@ -195,7 +195,7 @@ class NekoSama {
             thumbnail:
                 Uri.tryParse(episode["url_image"] ?? "::Not valid URI::") ??
                     Uri(),
-            url: Uri.parse("https://neko-sama.fr${episode["url"] ?? ""}"),
+            url: Uri.parse("https://animecat.net${episode["url"] ?? ""}"),
             duration: parseEpisodeDuration(episode["time"]),
           ),
       ];
@@ -280,9 +280,9 @@ class NekoSama {
   ///
   /// [source] is used to choose the database to fetch.
   ///
-  /// Vostfr: https://neko-sama.fr/animes-search-vostfr.json
+  /// Vostfr: https://animecat.net/animes-search-vostfr.json
   ///
-  /// Vf: https://neko-sama.fr/animes-search-vf.json
+  /// Vf: https://animecat.net/animes-search-vf.json
   Future<List<Map<String, dynamic>>> getRawSearchDb(
       [NSSources source = NSSources.vostfr]) async {
     try {

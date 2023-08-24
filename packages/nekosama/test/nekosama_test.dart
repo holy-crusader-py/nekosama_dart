@@ -2,7 +2,7 @@ import 'package:nekosama/nekosama.dart';
 import 'package:test/test.dart';
 
 Future<void> main() async {
-  group('Main test', () {
+  group('Main test =>', () {
     final api = NekoSama();
     test('Get Home', () async {
       final home = await api.getHome();
@@ -47,7 +47,7 @@ Future<void> main() async {
       expect(videoUrls.length, isNonZero);
       expect(videoUrls, isA<List<Uri>>());
     });
-    group('Get SearchDb', () {
+    group('Get SearchDb => ', () {
       test('(NSSources.vostfr)', () async {
         final searchDB = await api.getSearchDb(NSSources.vostfr);
         expect(searchDB.length, isNonZero);
@@ -59,7 +59,7 @@ Future<void> main() async {
         expect(searchDB, isA<List<NSSearchAnime>>());
       });
     });
-    group('Get raw SearchDb', () {
+    group('Get raw SearchDb => ', () {
       test('(NSSources.vostfr)', () async {
         final searchDB = await api.getRawSearchDb(NSSources.vostfr);
         expect(searchDB.length, isNonZero);
@@ -70,6 +70,18 @@ Future<void> main() async {
         expect(searchDB.length, isNonZero);
         expect(searchDB, isA<List<Map<String, dynamic>>>());
       });
+    });
+  });
+  group("Second Test => ", () {
+    final api = NekoSama();
+    test("NSAnime fromJson/toJson", () async {
+      final anime = await api.getAnime(
+        Uri.parse(
+          "https://animecat.net/anime/info/4833-panty-stocking-with-garterbelt_vostfr",
+        ),
+      );
+      final animeJson = NSAnime.fromJson(anime.toJson());
+      expect(animeJson, isA<NSAnime>());
     });
   });
 }

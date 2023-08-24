@@ -87,29 +87,34 @@ class NSAnime extends NSAnimeExtendedBase {
         "endDate": endDate?.millisecondsSinceEpoch,
       };
 
-  factory NSAnime.fromMap(Map<String, dynamic> map) => NSAnime(
-        id: map["id"] ?? 0,
-        title: map["title"] ?? "",
-        url: Uri.tryParse(map["url"] ?? "::Not valid URI::") ?? Uri(),
-        thumbnail:
-            Uri.tryParse(map["thumbnail"] ?? "::Not valid URI::") ?? Uri(),
-        episodeCount: map["episodeCount"] ?? 0,
-        titles: NSTitles.fromMap(map["titles"]),
-        genres: List<NSGenres>.from(
-            map["genres"]?.map((x) => NSGenres.values.elementAt(x))),
-        source: NSSources.values.elementAt(map["source"]),
-        status: NSStatuses.values.elementAt(map["status"]),
-        type: NSTypes.values.elementAt(map["type"]),
-        score: map["score"] ?? 0.0,
-        synopsis: map["synopsis"],
-        episodes: List<NSEpisode>.from(map["episodes"]?.map(NSEpisode.fromMap)),
-        startDate: map["startDate"] != null
-            ? DateTime.fromMillisecondsSinceEpoch(map["startDate"])
-            : null,
-        endDate: map["endDate"] != null
-            ? DateTime.fromMillisecondsSinceEpoch(map["endDate"])
-            : null,
-      );
+  factory NSAnime.fromMap(Map<String, dynamic> map) {
+    final List<NSEpisode> episodes = [];
+    for (final ep in map["episodes"]) {
+      episodes.add(NSEpisode.fromMap(ep));
+    }
+    return NSAnime(
+      id: map["id"] ?? 0,
+      title: map["title"] ?? "",
+      url: Uri.tryParse(map["url"] ?? "::Not valid URI::") ?? Uri(),
+      thumbnail: Uri.tryParse(map["thumbnail"] ?? "::Not valid URI::") ?? Uri(),
+      episodeCount: map["episodeCount"] ?? 0,
+      titles: NSTitles.fromMap(map["titles"]),
+      genres: List<NSGenres>.from(
+          map["genres"]?.map((x) => NSGenres.values.elementAt(x))),
+      source: NSSources.values.elementAt(map["source"]),
+      status: NSStatuses.values.elementAt(map["status"]),
+      type: NSTypes.values.elementAt(map["type"]),
+      score: map["score"] ?? 0.0,
+      synopsis: map["synopsis"],
+      episodes: episodes,
+      startDate: map["startDate"] != null
+          ? DateTime.fromMillisecondsSinceEpoch(map["startDate"])
+          : null,
+      endDate: map["endDate"] != null
+          ? DateTime.fromMillisecondsSinceEpoch(map["endDate"])
+          : null,
+    );
+  }
 
   String toJson() => json.encode(toMap());
 
